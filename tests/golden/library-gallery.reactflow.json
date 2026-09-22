@@ -807,11 +807,166 @@
       }
     },
     {
-      "id": "half_bridge",
-      "type": "full_bridge",
+      "id": "hsd",
+      "type": "high_side_driver",
       "position": {
         "x": 48,
         "y": 528
+      },
+      "width": 160,
+      "height": 112,
+      "data": {
+        "label": "High Side Driver",
+        "category": "power",
+        "importance": "secondary",
+        "size": "medium",
+        "shape": "rounded",
+        "icon": {
+          "name": "highside",
+          "viewBox": "0 0 24 24",
+          "elements": [
+            {
+              "d": "M3 5h18",
+              "mode": "stroke"
+            },
+            {
+              "d": "M12 5v3",
+              "mode": "stroke"
+            },
+            {
+              "d": "M12 8l5 6",
+              "mode": "stroke"
+            },
+            {
+              "d": "M12 14v7",
+              "mode": "stroke"
+            },
+            {
+              "d": "M9 18l3 3l3 -3",
+              "mode": "stroke"
+            }
+          ]
+        },
+        "pins": [
+          {
+            "id": "VS",
+            "label": "VS",
+            "kind": "power",
+            "side": "left",
+            "offset": 48
+          },
+          {
+            "id": "IN",
+            "label": "IN",
+            "kind": "digital",
+            "side": "left",
+            "offset": 64
+          },
+          {
+            "id": "OUT",
+            "label": "OUT",
+            "kind": "power",
+            "side": "right",
+            "offset": 64
+          },
+          {
+            "id": "IS",
+            "label": "IS",
+            "kind": "analog",
+            "side": "bottom",
+            "offset": 64
+          },
+          {
+            "id": "GND",
+            "label": "GND",
+            "kind": "ground",
+            "side": "bottom",
+            "offset": 112
+          }
+        ],
+        "meta": {}
+      }
+    },
+    {
+      "id": "lsd",
+      "type": "low_side_driver",
+      "position": {
+        "x": 320,
+        "y": 512
+      },
+      "width": 160,
+      "height": 96,
+      "data": {
+        "label": "Low Side Driver",
+        "category": "power",
+        "importance": "secondary",
+        "size": "medium",
+        "shape": "rounded",
+        "icon": {
+          "name": "lowside",
+          "viewBox": "0 0 24 24",
+          "elements": [
+            {
+              "d": "M3 19h18",
+              "mode": "stroke"
+            },
+            {
+              "d": "M12 16v3",
+              "mode": "stroke"
+            },
+            {
+              "d": "M12 16l5 -6",
+              "mode": "stroke"
+            },
+            {
+              "d": "M12 3v7",
+              "mode": "stroke"
+            },
+            {
+              "d": "M9 5l3 3l3 -3",
+              "mode": "stroke"
+            }
+          ]
+        },
+        "pins": [
+          {
+            "id": "IN",
+            "label": "IN",
+            "kind": "digital",
+            "side": "left",
+            "offset": 48
+          },
+          {
+            "id": "OUT",
+            "label": "OUT",
+            "kind": "power",
+            "side": "right",
+            "offset": 48
+          },
+          {
+            "id": "IS",
+            "label": "IS",
+            "kind": "analog",
+            "side": "bottom",
+            "offset": 64
+          },
+          {
+            "id": "GND",
+            "label": "GND",
+            "kind": "ground",
+            "side": "bottom",
+            "offset": 112
+          }
+        ],
+        "meta": {}
+      }
+    },
+    {
+      "id": "half_bridge",
+      "type": "full_bridge",
+      "position": {
+        "x": 576,
+        "y": 512
       },
       "width": 160,
       "height": 128,
@@ -897,7 +1052,7 @@
       "id": "load",
       "type": "load",
       "position": {
-        "x": 352,
+        "x": 832,
         "y": 512
       },
       "width": 96,
@@ -934,7 +1089,7 @@
       "id": "motor",
       "type": "motor",
       "position": {
-        "x": 608,
+        "x": 1056,
         "y": 512
       },
       "width": 96,
@@ -967,7 +1122,7 @@
       "id": "window_motor",
       "type": "window_motor",
       "position": {
-        "x": 832,
+        "x": 1280,
         "y": 512
       },
       "width": 96,
@@ -1004,8 +1159,8 @@
       "id": "heater",
       "type": "heater",
       "position": {
-        "x": 1056,
-        "y": 512
+        "x": 832,
+        "y": 816
       },
       "width": 96,
       "height": 64,
@@ -1041,8 +1196,8 @@
       "id": "valve",
       "type": "valve",
       "position": {
-        "x": 1280,
-        "y": 512
+        "x": 608,
+        "y": 832
       },
       "width": 96,
       "height": 64,
@@ -1083,7 +1238,7 @@
       "type": "sensor",
       "position": {
         "x": 80,
-        "y": 688
+        "y": 672
       },
       "width": 96,
       "height": 96,
@@ -1120,7 +1275,7 @@
       "type": "current_sensor",
       "position": {
         "x": 352,
-        "y": 672
+        "y": 656
       },
       "width": 96,
       "height": 96,
@@ -1190,7 +1345,7 @@
       "type": "position_sensor",
       "position": {
         "x": 832,
-        "y": 672
+        "y": 656
       },
       "width": 96,
       "height": 96,
@@ -1227,7 +1382,7 @@
       "type": "software_component",
       "position": {
         "x": 1024,
-        "y": 672
+        "y": 656
       },
       "width": 160,
       "height": 64,
@@ -1264,7 +1419,7 @@
       "type": "external_ecu",
       "position": {
         "x": 1248,
-        "y": 672
+        "y": 656
       },
       "width": 160,
       "height": 64,
@@ -1334,7 +1489,7 @@
       "type": "vehicle",
       "position": {
         "x": 320,
-        "y": 800
+        "y": 816
       },
       "width": 160,
       "height": 64,

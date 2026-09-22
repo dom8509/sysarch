@@ -1,6 +1,6 @@
 {
   "width": 1440,
-  "height": 912,
+  "height": 928,
   "background": "#FFFFFF",
   "title": "Library Gallery",
   "icons": [
@@ -241,6 +241,32 @@
       ]
     },
     {
+      "name": "highside",
+      "viewBox": "0 0 24 24",
+      "elements": [
+        {
+          "d": "M3 5h18",
+          "mode": "stroke"
+        },
+        {
+          "d": "M12 5v3",
+          "mode": "stroke"
+        },
+        {
+          "d": "M12 8l5 6",
+          "mode": "stroke"
+        },
+        {
+          "d": "M12 14v7",
+          "mode": "stroke"
+        },
+        {
+          "d": "M9 18l3 3l3 -3",
+          "mode": "stroke"
+        }
+      ]
+    },
+    {
       "name": "lamp",
       "viewBox": "0 0 24 24",
       "elements": [
@@ -272,6 +298,32 @@
         },
         {
           "d": "M15 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0Z",
+          "mode": "stroke"
+        }
+      ]
+    },
+    {
+      "name": "lowside",
+      "viewBox": "0 0 24 24",
+      "elements": [
+        {
+          "d": "M3 19h18",
+          "mode": "stroke"
+        },
+        {
+          "d": "M12 16v3",
+          "mode": "stroke"
+        },
+        {
+          "d": "M12 16l5 -6",
+          "mode": "stroke"
+        },
+        {
+          "d": "M12 3v7",
+          "mode": "stroke"
+        },
+        {
+          "d": "M9 5l3 3l3 -3",
           "mode": "stroke"
         }
       ]
@@ -794,11 +846,39 @@
     },
     {
       "type": "shape",
-      "ref": "component:half_bridge",
+      "ref": "component:hsd",
       "className": "sa-component sa-shape-rounded sa-cat-power sa-importance-secondary",
       "shape": "rounded",
       "x": 48,
       "y": 528,
+      "width": 160,
+      "height": 112,
+      "radius": 8,
+      "fill": "#FFF4D6",
+      "stroke": "#D69E00",
+      "strokeWidth": 1
+    },
+    {
+      "type": "shape",
+      "ref": "component:lsd",
+      "className": "sa-component sa-shape-rounded sa-cat-power sa-importance-secondary",
+      "shape": "rounded",
+      "x": 320,
+      "y": 512,
+      "width": 160,
+      "height": 96,
+      "radius": 8,
+      "fill": "#FFF4D6",
+      "stroke": "#D69E00",
+      "strokeWidth": 1
+    },
+    {
+      "type": "shape",
+      "ref": "component:half_bridge",
+      "className": "sa-component sa-shape-rounded sa-cat-power sa-importance-secondary",
+      "shape": "rounded",
+      "x": 576,
+      "y": 512,
       "width": 160,
       "height": 128,
       "radius": 8,
@@ -811,7 +891,7 @@
       "ref": "component:load",
       "className": "sa-component sa-shape-rounded sa-cat-actuator sa-importance-secondary",
       "shape": "rounded",
-      "x": 352,
+      "x": 832,
       "y": 512,
       "width": 96,
       "height": 64,
@@ -825,7 +905,7 @@
       "ref": "component:motor",
       "className": "sa-component sa-shape-circle sa-cat-actuator sa-importance-secondary",
       "shape": "circle",
-      "x": 608,
+      "x": 1056,
       "y": 512,
       "width": 96,
       "height": 96,
@@ -839,7 +919,7 @@
       "ref": "component:window_motor",
       "className": "sa-component sa-shape-circle sa-cat-actuator sa-importance-secondary",
       "shape": "circle",
-      "x": 832,
+      "x": 1280,
       "y": 512,
       "width": 96,
       "height": 96,
@@ -853,8 +933,8 @@
       "ref": "component:heater",
       "className": "sa-component sa-shape-rounded sa-cat-actuator sa-importance-secondary",
       "shape": "rounded",
-      "x": 1056,
-      "y": 512,
+      "x": 832,
+      "y": 816,
       "width": 96,
       "height": 64,
       "radius": 8,
@@ -867,8 +947,8 @@
       "ref": "component:valve",
       "className": "sa-component sa-shape-rounded sa-cat-actuator sa-importance-secondary",
       "shape": "rounded",
-      "x": 1280,
-      "y": 512,
+      "x": 608,
+      "y": 832,
       "width": 96,
       "height": 64,
       "radius": 8,
@@ -882,7 +962,7 @@
       "className": "sa-component sa-shape-circle sa-cat-sensor sa-importance-secondary",
       "shape": "circle",
       "x": 80,
-      "y": 688,
+      "y": 672,
       "width": 96,
       "height": 96,
       "radius": 0,
@@ -896,7 +976,7 @@
       "className": "sa-component sa-shape-circle sa-cat-sensor sa-importance-secondary",
       "shape": "circle",
       "x": 352,
-      "y": 672,
+      "y": 656,
       "width": 96,
       "height": 96,
       "radius": 0,
@@ -924,7 +1004,7 @@
       "className": "sa-component sa-shape-circle sa-cat-sensor sa-importance-secondary",
       "shape": "circle",
       "x": 832,
-      "y": 672,
+      "y": 656,
       "width": 96,
       "height": 96,
       "radius": 0,
@@ -938,7 +1018,7 @@
       "className": "sa-component sa-shape-hexagon sa-cat-software sa-importance-secondary",
       "shape": "hexagon",
       "x": 1024,
-      "y": 672,
+      "y": 656,
       "width": 160,
       "height": 64,
       "radius": 0,
@@ -952,7 +1032,7 @@
       "className": "sa-component sa-shape-rect sa-cat-external sa-importance-secondary",
       "shape": "rect",
       "x": 1248,
-      "y": 672,
+      "y": 656,
       "width": 160,
       "height": 64,
       "radius": 0,
@@ -980,7 +1060,7 @@
       "className": "sa-component sa-shape-rect sa-cat-external sa-importance-secondary",
       "shape": "rect",
       "x": 320,
-      "y": 800,
+      "y": 816,
       "width": 160,
       "height": 64,
       "radius": 0,
@@ -1177,11 +1257,33 @@
     },
     {
       "type": "icon",
+      "ref": "component:hsd",
+      "className": "sa-icon",
+      "name": "highside",
+      "x": 63.609130859375,
+      "y": 536,
+      "size": 20,
+      "color": "#3D2E00",
+      "strokeWidth": 2
+    },
+    {
+      "type": "icon",
+      "ref": "component:lsd",
+      "className": "sa-icon",
+      "name": "lowside",
+      "x": 337.14208984375,
+      "y": 520,
+      "size": 20,
+      "color": "#3D2E00",
+      "strokeWidth": 2
+    },
+    {
+      "type": "icon",
       "ref": "component:half_bridge",
       "className": "sa-icon",
       "name": "bridge",
-      "x": 81.135009765625,
-      "y": 536,
+      "x": 609.135009765625,
+      "y": 520,
       "size": 20,
       "color": "#3D2E00",
       "strokeWidth": 2
@@ -1191,7 +1293,7 @@
       "ref": "component:load",
       "className": "sa-icon",
       "name": "lamp",
-      "x": 392,
+      "x": 872,
       "y": 523.875,
       "size": 16,
       "color": "#4A1B06",
@@ -1202,7 +1304,7 @@
       "ref": "component:motor",
       "className": "sa-icon",
       "name": "motor",
-      "x": 648,
+      "x": 1096,
       "y": 539.875,
       "size": 16,
       "color": "#4A1B06",
@@ -1213,7 +1315,7 @@
       "ref": "component:window_motor",
       "className": "sa-icon",
       "name": "window",
-      "x": 872,
+      "x": 1320,
       "y": 531.75,
       "size": 16,
       "color": "#4A1B06",
@@ -1224,8 +1326,8 @@
       "ref": "component:heater",
       "className": "sa-icon",
       "name": "heater",
-      "x": 1096,
-      "y": 523.875,
+      "x": 872,
+      "y": 827.875,
       "size": 16,
       "color": "#4A1B06",
       "strokeWidth": 2
@@ -1235,8 +1337,8 @@
       "ref": "component:valve",
       "className": "sa-icon",
       "name": "valve",
-      "x": 1320,
-      "y": 523.875,
+      "x": 648,
+      "y": 843.875,
       "size": 16,
       "color": "#4A1B06",
       "strokeWidth": 2
@@ -1247,7 +1349,7 @@
       "className": "sa-icon",
       "name": "sensor",
       "x": 120,
-      "y": 715.875,
+      "y": 699.875,
       "size": 16,
       "color": "#2E1766",
       "strokeWidth": 2
@@ -1258,7 +1360,7 @@
       "className": "sa-icon",
       "name": "current",
       "x": 392,
-      "y": 691.75,
+      "y": 675.75,
       "size": 16,
       "color": "#2E1766",
       "strokeWidth": 2
@@ -1280,7 +1382,7 @@
       "className": "sa-icon",
       "name": "position",
       "x": 872,
-      "y": 691.75,
+      "y": 675.75,
       "size": 16,
       "color": "#2E1766",
       "strokeWidth": 2
@@ -1291,7 +1393,7 @@
       "className": "sa-icon",
       "name": "software",
       "x": 1096,
-      "y": 683.875,
+      "y": 667.875,
       "size": 16,
       "color": "#0A3940",
       "strokeWidth": 2
@@ -1302,7 +1404,7 @@
       "className": "sa-icon",
       "name": "ecu",
       "x": 1273.3115234375,
-      "y": 694,
+      "y": 678,
       "size": 20,
       "color": "#1F2937",
       "strokeWidth": 2
@@ -1324,7 +1426,7 @@
       "className": "sa-icon",
       "name": "vehicle",
       "x": 363.170654296875,
-      "y": 822,
+      "y": 838,
       "size": 20,
       "color": "#1F2937",
       "strokeWidth": 2
@@ -1643,7 +1745,7 @@
     },
     {
       "type": "marker",
-      "ref": "pin:half_bridge.VS",
+      "ref": "pin:hsd.VS",
       "className": "sa-pin sa-group-supply sa-kind-power",
       "shape": "pin",
       "x": 48,
@@ -1656,11 +1758,128 @@
     },
     {
       "type": "marker",
-      "ref": "pin:half_bridge.IN1",
+      "ref": "pin:hsd.IN",
       "className": "sa-pin sa-group-single sa-kind-digital",
       "shape": "pin",
       "x": 48,
       "y": 592,
+      "angle": 180,
+      "size": 6,
+      "fill": "#D69E00",
+      "stroke": "#FFFFFF",
+      "strokeWidth": 1
+    },
+    {
+      "type": "marker",
+      "ref": "pin:hsd.OUT",
+      "className": "sa-pin sa-group-supply sa-kind-power",
+      "shape": "pin",
+      "x": 208,
+      "y": 592,
+      "angle": 0,
+      "size": 6,
+      "fill": "#D69E00",
+      "stroke": "#FFFFFF",
+      "strokeWidth": 1
+    },
+    {
+      "type": "marker",
+      "ref": "pin:hsd.IS",
+      "className": "sa-pin sa-group-single sa-kind-analog",
+      "shape": "pin",
+      "x": 112,
+      "y": 640,
+      "angle": 90,
+      "size": 6,
+      "fill": "#D69E00",
+      "stroke": "#FFFFFF",
+      "strokeWidth": 1
+    },
+    {
+      "type": "marker",
+      "ref": "pin:hsd.GND",
+      "className": "sa-pin sa-group-supply sa-kind-ground",
+      "shape": "pin",
+      "x": 160,
+      "y": 640,
+      "angle": 90,
+      "size": 6,
+      "fill": "#D69E00",
+      "stroke": "#FFFFFF",
+      "strokeWidth": 1
+    },
+    {
+      "type": "marker",
+      "ref": "pin:lsd.IN",
+      "className": "sa-pin sa-group-single sa-kind-digital",
+      "shape": "pin",
+      "x": 320,
+      "y": 560,
+      "angle": 180,
+      "size": 6,
+      "fill": "#D69E00",
+      "stroke": "#FFFFFF",
+      "strokeWidth": 1
+    },
+    {
+      "type": "marker",
+      "ref": "pin:lsd.OUT",
+      "className": "sa-pin sa-group-supply sa-kind-power",
+      "shape": "pin",
+      "x": 480,
+      "y": 560,
+      "angle": 0,
+      "size": 6,
+      "fill": "#D69E00",
+      "stroke": "#FFFFFF",
+      "strokeWidth": 1
+    },
+    {
+      "type": "marker",
+      "ref": "pin:lsd.IS",
+      "className": "sa-pin sa-group-single sa-kind-analog",
+      "shape": "pin",
+      "x": 384,
+      "y": 608,
+      "angle": 90,
+      "size": 6,
+      "fill": "#D69E00",
+      "stroke": "#FFFFFF",
+      "strokeWidth": 1
+    },
+    {
+      "type": "marker",
+      "ref": "pin:lsd.GND",
+      "className": "sa-pin sa-group-supply sa-kind-ground",
+      "shape": "pin",
+      "x": 432,
+      "y": 608,
+      "angle": 90,
+      "size": 6,
+      "fill": "#D69E00",
+      "stroke": "#FFFFFF",
+      "strokeWidth": 1
+    },
+    {
+      "type": "marker",
+      "ref": "pin:half_bridge.VS",
+      "className": "sa-pin sa-group-supply sa-kind-power",
+      "shape": "pin",
+      "x": 576,
+      "y": 560,
+      "angle": 180,
+      "size": 6,
+      "fill": "#D69E00",
+      "stroke": "#FFFFFF",
+      "strokeWidth": 1
+    },
+    {
+      "type": "marker",
+      "ref": "pin:half_bridge.IN1",
+      "className": "sa-pin sa-group-single sa-kind-digital",
+      "shape": "pin",
+      "x": 576,
+      "y": 576,
       "angle": 180,
       "size": 6,
       "fill": "#D69E00",
@@ -1672,8 +1891,8 @@
       "ref": "pin:half_bridge.IN2",
       "className": "sa-pin sa-group-single sa-kind-digital",
       "shape": "pin",
-      "x": 48,
-      "y": 608,
+      "x": 576,
+      "y": 592,
       "angle": 180,
       "size": 6,
       "fill": "#D69E00",
@@ -1685,8 +1904,8 @@
       "ref": "pin:half_bridge.OUT1",
       "className": "sa-pin sa-group-supply sa-kind-power",
       "shape": "pin",
-      "x": 208,
-      "y": 592,
+      "x": 736,
+      "y": 576,
       "angle": 0,
       "size": 6,
       "fill": "#D69E00",
@@ -1698,8 +1917,8 @@
       "ref": "pin:half_bridge.OUT2",
       "className": "sa-pin sa-group-supply sa-kind-power",
       "shape": "pin",
-      "x": 208,
-      "y": 608,
+      "x": 736,
+      "y": 592,
       "angle": 0,
       "size": 6,
       "fill": "#D69E00",
@@ -1711,8 +1930,8 @@
       "ref": "pin:half_bridge.IS",
       "className": "sa-pin sa-group-single sa-kind-analog",
       "shape": "pin",
-      "x": 112,
-      "y": 656,
+      "x": 640,
+      "y": 640,
       "angle": 90,
       "size": 6,
       "fill": "#D69E00",
@@ -1724,8 +1943,8 @@
       "ref": "pin:half_bridge.GND",
       "className": "sa-pin sa-group-supply sa-kind-ground",
       "shape": "pin",
-      "x": 160,
-      "y": 656,
+      "x": 688,
+      "y": 640,
       "angle": 90,
       "size": 6,
       "fill": "#D69E00",
@@ -2616,14 +2835,14 @@
     },
     {
       "type": "text",
-      "ref": "component:half_bridge",
+      "ref": "component:hsd",
       "className": "sa-label sa-component-label",
       "x": 142,
       "y": 537.875,
       "anchor": "middle",
       "baseline": "top",
       "lines": [
-        "Full Bridge"
+        "High Side Driver"
       ],
       "style": {
         "size": 13,
@@ -2633,11 +2852,11 @@
       },
       "lineHeight": 16.25,
       "ascent": 12.85400390625,
-      "width": 65.72998046875
+      "width": 100.78173828125
     },
     {
       "type": "text",
-      "ref": "pin:half_bridge.VS",
+      "ref": "pin:hsd.VS",
       "className": "sa-label sa-pin-label",
       "x": 56,
       "y": 576,
@@ -2658,10 +2877,241 @@
     },
     {
       "type": "text",
-      "ref": "pin:half_bridge.IN1",
+      "ref": "pin:hsd.IN",
       "className": "sa-label sa-pin-label",
       "x": 56,
       "y": 592,
+      "anchor": "start",
+      "baseline": "middle",
+      "lines": [
+        "IN"
+      ],
+      "style": {
+        "size": 11,
+        "weight": 400,
+        "color": "#3D2E00",
+        "fontFamily": "Inter"
+      },
+      "lineHeight": 13.75,
+      "ascent": 10.87646484375,
+      "width": 11.24169921875
+    },
+    {
+      "type": "text",
+      "ref": "pin:hsd.OUT",
+      "className": "sa-label sa-pin-label",
+      "x": 200,
+      "y": 592,
+      "anchor": "end",
+      "baseline": "middle",
+      "lines": [
+        "OUT"
+      ],
+      "style": {
+        "size": 11,
+        "weight": 400,
+        "color": "#3D2E00",
+        "fontFamily": "Inter"
+      },
+      "lineHeight": 13.75,
+      "ascent": 10.87646484375,
+      "width": 23.697265625
+    },
+    {
+      "type": "text",
+      "ref": "pin:hsd.IS",
+      "className": "sa-label sa-pin-label",
+      "x": 112,
+      "y": 632,
+      "anchor": "middle",
+      "baseline": "bottom",
+      "lines": [
+        "IS"
+      ],
+      "style": {
+        "size": 11,
+        "weight": 400,
+        "color": "#3D2E00",
+        "fontFamily": "Inter"
+      },
+      "lineHeight": 13.75,
+      "ascent": 10.87646484375,
+      "width": 10.01171875
+    },
+    {
+      "type": "text",
+      "ref": "pin:hsd.GND",
+      "className": "sa-label sa-pin-label",
+      "x": 160,
+      "y": 632,
+      "anchor": "middle",
+      "baseline": "bottom",
+      "lines": [
+        "GND"
+      ],
+      "style": {
+        "size": 11,
+        "weight": 400,
+        "color": "#3D2E00",
+        "fontFamily": "Inter"
+      },
+      "lineHeight": 13.75,
+      "ascent": 10.87646484375,
+      "width": 24.43310546875
+    },
+    {
+      "type": "text",
+      "ref": "component:lsd",
+      "className": "sa-label sa-component-label",
+      "x": 414,
+      "y": 521.875,
+      "anchor": "middle",
+      "baseline": "top",
+      "lines": [
+        "Low Side Driver"
+      ],
+      "style": {
+        "size": 13,
+        "weight": 500,
+        "color": "#3D2E00",
+        "fontFamily": "Inter"
+      },
+      "lineHeight": 16.25,
+      "ascent": 12.85400390625,
+      "width": 97.7158203125
+    },
+    {
+      "type": "text",
+      "ref": "pin:lsd.IN",
+      "className": "sa-label sa-pin-label",
+      "x": 328,
+      "y": 560,
+      "anchor": "start",
+      "baseline": "middle",
+      "lines": [
+        "IN"
+      ],
+      "style": {
+        "size": 11,
+        "weight": 400,
+        "color": "#3D2E00",
+        "fontFamily": "Inter"
+      },
+      "lineHeight": 13.75,
+      "ascent": 10.87646484375,
+      "width": 11.24169921875
+    },
+    {
+      "type": "text",
+      "ref": "pin:lsd.OUT",
+      "className": "sa-label sa-pin-label",
+      "x": 472,
+      "y": 560,
+      "anchor": "end",
+      "baseline": "middle",
+      "lines": [
+        "OUT"
+      ],
+      "style": {
+        "size": 11,
+        "weight": 400,
+        "color": "#3D2E00",
+        "fontFamily": "Inter"
+      },
+      "lineHeight": 13.75,
+      "ascent": 10.87646484375,
+      "width": 23.697265625
+    },
+    {
+      "type": "text",
+      "ref": "pin:lsd.IS",
+      "className": "sa-label sa-pin-label",
+      "x": 384,
+      "y": 600,
+      "anchor": "middle",
+      "baseline": "bottom",
+      "lines": [
+        "IS"
+      ],
+      "style": {
+        "size": 11,
+        "weight": 400,
+        "color": "#3D2E00",
+        "fontFamily": "Inter"
+      },
+      "lineHeight": 13.75,
+      "ascent": 10.87646484375,
+      "width": 10.01171875
+    },
+    {
+      "type": "text",
+      "ref": "pin:lsd.GND",
+      "className": "sa-label sa-pin-label",
+      "x": 432,
+      "y": 600,
+      "anchor": "middle",
+      "baseline": "bottom",
+      "lines": [
+        "GND"
+      ],
+      "style": {
+        "size": 11,
+        "weight": 400,
+        "color": "#3D2E00",
+        "fontFamily": "Inter"
+      },
+      "lineHeight": 13.75,
+      "ascent": 10.87646484375,
+      "width": 24.43310546875
+    },
+    {
+      "type": "text",
+      "ref": "component:half_bridge",
+      "className": "sa-label sa-component-label",
+      "x": 670,
+      "y": 521.875,
+      "anchor": "middle",
+      "baseline": "top",
+      "lines": [
+        "Full Bridge"
+      ],
+      "style": {
+        "size": 13,
+        "weight": 500,
+        "color": "#3D2E00",
+        "fontFamily": "Inter"
+      },
+      "lineHeight": 16.25,
+      "ascent": 12.85400390625,
+      "width": 65.72998046875
+    },
+    {
+      "type": "text",
+      "ref": "pin:half_bridge.VS",
+      "className": "sa-label sa-pin-label",
+      "x": 584,
+      "y": 560,
+      "anchor": "start",
+      "baseline": "middle",
+      "lines": [
+        "VS"
+      ],
+      "style": {
+        "size": 11,
+        "weight": 400,
+        "color": "#3D2E00",
+        "fontFamily": "Inter"
+      },
+      "lineHeight": 13.75,
+      "ascent": 10.87646484375,
+      "width": 14.64697265625
+    },
+    {
+      "type": "text",
+      "ref": "pin:half_bridge.IN1",
+      "className": "sa-label sa-pin-label",
+      "x": 584,
+      "y": 576,
       "anchor": "start",
       "baseline": "middle",
       "lines": [
@@ -2681,8 +3131,8 @@
       "type": "text",
       "ref": "pin:half_bridge.IN2",
       "className": "sa-label sa-pin-label",
-      "x": 56,
-      "y": 608,
+      "x": 584,
+      "y": 592,
       "anchor": "start",
       "baseline": "middle",
       "lines": [
@@ -2702,8 +3152,8 @@
       "type": "text",
       "ref": "pin:half_bridge.OUT1",
       "className": "sa-label sa-pin-label",
-      "x": 200,
-      "y": 592,
+      "x": 728,
+      "y": 576,
       "anchor": "end",
       "baseline": "middle",
       "lines": [
@@ -2723,8 +3173,8 @@
       "type": "text",
       "ref": "pin:half_bridge.OUT2",
       "className": "sa-label sa-pin-label",
-      "x": 200,
-      "y": 608,
+      "x": 728,
+      "y": 592,
       "anchor": "end",
       "baseline": "middle",
       "lines": [
@@ -2744,8 +3194,8 @@
       "type": "text",
       "ref": "pin:half_bridge.IS",
       "className": "sa-label sa-pin-label",
-      "x": 112,
-      "y": 648,
+      "x": 640,
+      "y": 632,
       "anchor": "middle",
       "baseline": "bottom",
       "lines": [
@@ -2765,8 +3215,8 @@
       "type": "text",
       "ref": "pin:half_bridge.GND",
       "className": "sa-label sa-pin-label",
-      "x": 160,
-      "y": 648,
+      "x": 688,
+      "y": 632,
       "anchor": "middle",
       "baseline": "bottom",
       "lines": [
@@ -2786,7 +3236,7 @@
       "type": "text",
       "ref": "component:load",
       "className": "sa-label sa-component-label",
-      "x": 400,
+      "x": 880,
       "y": 547.875,
       "anchor": "middle",
       "baseline": "top",
@@ -2807,7 +3257,7 @@
       "type": "text",
       "ref": "component:motor",
       "className": "sa-label sa-component-label",
-      "x": 656,
+      "x": 1104,
       "y": 563.875,
       "anchor": "middle",
       "baseline": "top",
@@ -2828,7 +3278,7 @@
       "type": "text",
       "ref": "component:window_motor",
       "className": "sa-label sa-component-label",
-      "x": 880,
+      "x": 1328,
       "y": 555.75,
       "anchor": "middle",
       "baseline": "top",
@@ -2850,8 +3300,8 @@
       "type": "text",
       "ref": "component:heater",
       "className": "sa-label sa-component-label",
-      "x": 1104,
-      "y": 547.875,
+      "x": 880,
+      "y": 851.875,
       "anchor": "middle",
       "baseline": "top",
       "lines": [
@@ -2871,8 +3321,8 @@
       "type": "text",
       "ref": "component:valve",
       "className": "sa-label sa-component-label",
-      "x": 1328,
-      "y": 547.875,
+      "x": 656,
+      "y": 867.875,
       "anchor": "middle",
       "baseline": "top",
       "lines": [
@@ -2893,7 +3343,7 @@
       "ref": "component:sensor",
       "className": "sa-label sa-component-label",
       "x": 128,
-      "y": 739.875,
+      "y": 723.875,
       "anchor": "middle",
       "baseline": "top",
       "lines": [
@@ -2914,7 +3364,7 @@
       "ref": "component:current_sensor",
       "className": "sa-label sa-component-label",
       "x": 400,
-      "y": 715.75,
+      "y": 699.75,
       "anchor": "middle",
       "baseline": "top",
       "lines": [
@@ -2958,7 +3408,7 @@
       "ref": "component:position",
       "className": "sa-label sa-component-label",
       "x": 880,
-      "y": 715.75,
+      "y": 699.75,
       "anchor": "middle",
       "baseline": "top",
       "lines": [
@@ -2980,7 +3430,7 @@
       "ref": "component:software",
       "className": "sa-label sa-component-label",
       "x": 1104,
-      "y": 707.875,
+      "y": 691.875,
       "anchor": "middle",
       "baseline": "top",
       "lines": [
@@ -3001,7 +3451,7 @@
       "ref": "component:external_ecu",
       "className": "sa-label sa-component-label",
       "x": 1342,
-      "y": 695.875,
+      "y": 679.875,
       "anchor": "middle",
       "baseline": "top",
       "lines": [
@@ -3043,7 +3493,7 @@
       "ref": "component:vehicle",
       "className": "sa-label sa-component-label",
       "x": 414,
-      "y": 823.875,
+      "y": 839.875,
       "anchor": "middle",
       "baseline": "top",
       "lines": [

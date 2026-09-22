@@ -126,7 +126,7 @@ in light, dark and `technical`.
 | Supply | `battery`, `power`, `regulator`, `fuse`, `relay`, `ground` |
 | Compute & memory | `chip`, `soc`, `memory`, `watchdog`, `clock` |
 | Communication | `can`, `lin`, `ethernet`, `switch`, `bus`, `connector` |
-| Power & actuation | `bridge`, `motor`, `window`, `valve`, `lamp`, `heater` |
+| Power & actuation | `highside`, `lowside`, `bridge`, `motor`, `window`, `valve`, `lamp`, `heater` |
 | Sensing | `sensor`, `temperature`, `current`, `position` |
 | Other | `ecu`, `software`, `cloud`, `vehicle` |
 
