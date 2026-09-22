@@ -102,7 +102,7 @@ view          = "view" IDENT [ "{" { label } "}" ] ;
 show          = "show" "in" IDENT { "," IDENT } ;
 
 zone          = "zone" IDENT "{" { label | show | system | component } "}" ;
-system        = "system" IDENT "{" { label | show | system | component } "}" ;
+system        = "system" IDENT "{" { label | show | system | component | connection } "}" ;
 
 component     = ( "component" | "external" ) IDENT [ ":" IDENT ] [ "{" { comp_stmt } "}" ] ;
 comp_stmt     = label | size | importance | category | pin | side_block | hint | count | meta | show ;
@@ -302,6 +302,25 @@ Both group components, but they serve different purposes:
 - If zones are used, **every** component must sit in a zone.
 - A component belongs to the innermost block it is defined in. There are no references to
   components defined elsewhere in v0.1.
+- A `system` also carries the connections between its own components, so that the wiring of
+  an ECU stays with the ECU:
+
+  ```sysarch code-only
+  system ecu {
+      label "BCM"
+      component mcu: microcontroller { pin can CAN_TX }
+      component trx: can_transceiver
+
+      mcu.CAN_TX -> trx.TXD
+  }
+  ```
+
+  Where a connection is written changes nothing about the model: IDs are unique across the
+  whole document, and the connection is laid out, routed and exported exactly as if it stood
+  in the architecture. Both endpoints must belong to the system, nested systems included —
+  otherwise `W206` asks for the connection to move up. A connection that crosses the system
+  boundary belongs to the architecture, and a `zone` never carries connections: it is a
+  layout band, not a semantic boundary ([D8](decisions.md)).
 
 ### 4.6 Views
 
@@ -478,6 +497,7 @@ Codes are stable and documented so that CI filters and tests can build on them.
 | `W203` | warning | local `define` overrides a library template |
 | `W204` | warning | `show in` does not overlap with the views of the surroundings — the element is shown nowhere |
 | `W205` | warning | a view shows no component |
+| `W206` | warning | a connection inside a `system` has an endpoint outside that system (4.5) |
 | `I301` | info | pin without a connection — not on `external` components (4.2) |
 
 **Error tolerance:** after an error the parser synchronizes on the next `}` or the next
@@ -496,6 +516,8 @@ the text it inserts.
 - **Order inside `architecture`:** `theme` › `direction` › `pins` › `stack` › views ›
   `layout` › zones/systems/components › connections. Within those groups and in every other block the
   source order is kept — it carries meaning (pin and zone order).
+- **Order inside `system`:** `label`/`show` › systems/components › connections, with a blank
+  line before the connections. Inside a `zone` the source order is kept.
 - **Blank lines:** at most one in a row, none at the start or end of a block. Between the
   sections (`theme`/`direction`/`pins`/`stack`, views, `layout`, structure, connections) and
   between `define`s there is always one.

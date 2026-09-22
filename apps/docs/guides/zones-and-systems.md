@@ -74,4 +74,39 @@ architecture "Vehicle Network" {
 
 The structure is always a tree: `architecture › zone › system … › component`. A component
 belongs to the innermost block it is written in, and its ID is unique across the whole
-document. Connections always live at the level of the `architecture`.
+document.
+
+## Connections inside a system
+
+A system carries the connections between its own components. In a document with a handful of
+ECUs, a single list of connections at the bottom no longer says which ECU it describes —
+written inside the system, the wiring stays with the thing it wires:
+
+```sysarch
+architecture "Vehicle Network" {
+    direction LR
+
+    system bcm {
+        label "Body Control Module"
+        component mcu: microcontroller { label "RH850" }
+        component can: can_transceiver
+
+        mcu -> can.TXD
+    }
+
+    component door: external_ecu { label "Door ECU" }
+
+    can.CANH <-> door { type can }
+}
+```
+
+Where a connection is written changes nothing about the diagram: IDs are unique across the
+whole document, and the connection is laid out, routed and exported exactly as if it stood in
+the architecture. It is a matter of reading order, and `sysarch fmt` keeps it one: inside a
+system the connections come after the components, separated by a blank line.
+
+Both endpoints have to belong to the system — components of nested systems count as its own.
+A connection that crosses the system boundary is not the system's own business and belongs to
+the architecture; otherwise sysarch reports
+[W206](/reference/diagnostics#w206). A `zone` never carries connections: it is a band in the
+layout, not a boundary in the model.

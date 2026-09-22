@@ -6,7 +6,7 @@ export type Severity = "error" | "warning" | "info";
 export const DIAGNOSTIC_CODES = [
   "E001", "E101", "E102", "E103", "E104", "E105", "E106",
   "E107", "E108", "E109", "E110", "E111", "E112",
-  "W201", "W202", "W203", "W204", "W205",
+  "W201", "W202", "W203", "W204", "W205", "W206",
   "I301",
 ] as const;
 

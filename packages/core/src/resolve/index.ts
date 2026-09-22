@@ -349,6 +349,9 @@ export function resolve(tree: SyntaxTree, library: Library): ParseResult<Archite
     spans[stmt.axis] = stmt.span;
   };
 
+  /** Document order; a connection inside a `system` knows the system it was written in. */
+  const connectionNodes: { node: ConnectionNode; system?: GroupId }[] = [];
+
   const walkGroup = (body: readonly GroupStmt[], group: Group, path: GroupId[], inZone: boolean) => {
     for (const stmt of body) {
       switch (stmt.kind) {
@@ -371,11 +374,14 @@ export function resolve(tree: SyntaxTree, library: Library): ParseResult<Archite
         case "Component":
           addComponent(stmt, group, path, inZone);
           break;
+        case "Connection":
+          // Only a system reaches this point — the parser rejects connections in a zone.
+          connectionNodes.push({ node: stmt, system: group.id });
+          break;
       }
     }
   };
 
-  const connectionNodes: ConnectionNode[] = [];
   for (const stmt of arch.body) {
     switch (stmt.kind) {
       case "Zone": {
@@ -394,7 +400,7 @@ export function resolve(tree: SyntaxTree, library: Library): ParseResult<Archite
         addComponent(stmt, model.root, [], false);
         break;
       case "Connection":
-        connectionNodes.push(stmt);
+        connectionNodes.push({ node: stmt });
         break;
     }
   }
@@ -430,10 +436,25 @@ export function resolve(tree: SyntaxTree, library: Library): ParseResult<Archite
 
   const address = (e: Endpoint) => (e.pin === undefined ? e.component : `${e.component}.${e.pin}`);
 
-  for (const node of connectionNodes) {
+  /** A connection written inside a system describes that system's own wiring (§4.5). */
+  const checkInside = (system: GroupId, node: EndpointNode) => {
+    const component = model.components.get(node.component.name);
+    if (component === undefined || component.groupPath.includes(system)) return;
+    diagnostics.push(diagnostic(
+      "W206",
+      `\`${node.component.name}\` is not part of system \`${system}\` — write this connection in the architecture`,
+      node.component.span,
+    ));
+  };
+
+  for (const { node, system } of connectionNodes) {
     const from = resolveEndpoint(node.from);
     const to = resolveEndpoint(node.to);
     if (from === undefined || to === undefined) continue;
+    if (system !== undefined) {
+      checkInside(system, node.from);
+      checkInside(system, node.to);
+    }
 
     const [source, target] = node.arrow === "<-" ? [to, from] : [from, to];
     const direction = node.arrow === "<->" ? "bidirectional" : node.arrow === "--" ? "none" : "forward";

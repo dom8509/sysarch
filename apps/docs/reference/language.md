@@ -24,7 +24,7 @@ architecture "Title" {
     layout { … }                 // mode, pin spacing, grid
 
     zone <id> { … }              // label, system, component
-    system <id> { … }            // label, system, component
+    system <id> { … }            // label, system, component, connections
     component <id>[: <template>] { … }
     external <id>[: <template>] { … }   // context, not part of the system
 
@@ -112,13 +112,25 @@ Properties: `label "…"` and `type <kind>`. Without `type`, the kind is derived
 ```sysarch code-only
 zone <id> {
     label "…"
-    system <id> { label "…"  component … }
+    system <id> {
+        label "…"
+        component …
+
+        a.X -> b.Y               // wiring inside the system
+    }
     component …
 }
 ```
 
 Zones only at the top level; systems nested as deeply as you like. Once zones are used, every
-component lives in a zone. See [Zones and systems](/guides/zones-and-systems).
+component lives in a zone.
+
+A `system` also carries the connections between its own components — where a connection is
+written changes nothing about the diagram, only where it is read. Both endpoints must belong
+to the system, nested systems included, otherwise that is
+[W206](./diagnostics#w206); a connection across the system boundary belongs to the
+architecture. A `zone` carries no connections. See
+[Zones and systems](/guides/zones-and-systems).
 
 ## Views
 

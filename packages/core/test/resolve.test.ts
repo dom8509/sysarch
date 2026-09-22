@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { compile, loadLibrary, parse, resolve, standardLibrary } from "../src/index.js";
-import { arch } from "./helpers.js";
+import { arch, problems } from "./helpers.js";
 
 const model = (source: string) => {
   const result = compile(source);
@@ -155,6 +155,24 @@ describe("connections", () => {
       "power:inferred", "pwm:inferred", "analog:inferred", "pwm:inferred", "analog:inferred", "signal:inferred", "can:explicit",
     ]);
     expect(c[6]!.label).toBe("CAN");
+  });
+
+  it("takes connections from system blocks, in document order", () => {
+    const m = model(arch(` component sensor
+ system ecu {
+ component mcu
+ system core { component cpu }
+ mcu -> cpu
+ }
+ sensor -> mcu`));
+    expect(m.connections.map((c) => c.id)).toEqual(["mcu->cpu#1", "sensor->mcu#1"]);
+  });
+
+  it("warns about an endpoint outside the enclosing system", () => {
+    const source = arch(" component sensor\n system ecu {\n component mcu\n sensor -> mcu\n }");
+    expect(problems(source)).toEqual(["W206 6:2"]);
+    // The connection itself stays in the model — where it is written changes nothing.
+    expect(compile(source).value.connections.map((c) => c.id)).toEqual(["sensor->mcu#1"]);
   });
 
   it("discards connections with invalid endpoints entirely", () => {

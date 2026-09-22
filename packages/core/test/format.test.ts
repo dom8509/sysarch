@@ -92,6 +92,35 @@ describe("format", () => {
     expect(semantics(fmt(source))).toEqual(semantics(source));
   });
 
+  it("puts the connections of a system last, in their own section", () => {
+    const source = arch([
+      "zone z {",
+      "system ecu {",
+      "mcu.CAN_TX -> trx.TXD { type can }",
+      'component mcu { pin can CAN_TX }',
+      'label "ECU"',
+      "component trx: can_transceiver",
+      "mcu -> trx",
+      "}",
+      "}",
+    ].join("\n"));
+    expect(fmt(source)).toBe(arch([
+      "    zone z {",
+      "        system ecu {",
+      '            label "ECU"',
+      "            component mcu {",
+      "                pin can CAN_TX",
+      "            }",
+      "            component trx: can_transceiver",
+      "",
+      "            mcu.CAN_TX -> trx.TXD { type can }",
+      "            mcu -> trx",
+      "        }",
+      "    }",
+    ].join("\n")));
+    expect(semantics(fmt(source))).toEqual(semantics(source));
+  });
+
   it("keeps the `external` keyword and sorts it with the components", () => {
     const source = arch(["external  m:motor{label \"Motor\"}", "component a", "a -> m"].join("\n"));
     expect(fmt(source)).toBe(arch([

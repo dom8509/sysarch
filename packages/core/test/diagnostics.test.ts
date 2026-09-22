@@ -115,6 +115,14 @@ const cases: Record<DiagnosticCode, Case[]> = {
   W205: [
     { name: "view without a component", source: arch(" view overview\n view detailed\n component a { show in overview }"), at: "4:2" },
   ],
+  W206: [
+    {
+      name: "endpoint outside the enclosing system",
+      source: arch(" component out\n system ecu {\n component mcu\n mcu -> out\n }"),
+      at: "6:9",
+      message: "not part of system `ecu`",
+    },
+  ],
   I301: [
     { name: "pin without a connection", source: arch(" component a { pin power VDD }"), at: "3:16" },
   ],

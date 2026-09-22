@@ -37,6 +37,16 @@ const SECTION: Readonly<Record<string, number>> = {
   Theme: 0, Direction: 0, Pins: 0, Stack: 0, View: 1, Layout: 2, Zone: 3, System: 3, Component: 3, Connection: 4,
 };
 
+/** Order in a `system`: its own properties › structure › connections (§6). */
+const SYSTEM_ORDER: Readonly<Record<string, number>> = {
+  Label: 0, Show: 0, System: 1, Component: 1, Connection: 2,
+};
+
+/** Only the connections of a system form a section of their own, as in `architecture`. */
+const SYSTEM_SECTION: Readonly<Record<string, number>> = {
+  Label: 0, Show: 0, System: 0, Component: 0, Connection: 1,
+};
+
 interface Entry {
   node: Statement;
   /** Comments and blank lines on their own lines before the statement. */
@@ -272,7 +282,7 @@ export function format(source: string): ParseResult<string> {
   const printEntries = (
     depth: number,
     entries: readonly Entry[],
-    options: { sectioned?: boolean; separated?: boolean; grid?: readonly number[] } = {},
+    options: { sections?: Readonly<Record<string, number>>; separated?: boolean; grid?: readonly number[] } = {},
   ) => {
     const lineForms = entries.map((e) => (options.grid ? undefined : oneLine(e.node, depth)));
 
@@ -300,7 +310,8 @@ export function format(source: string): ParseResult<string> {
     entries.forEach((entry, k) => {
       const { node } = entry;
       const first = k === 0;
-      const sectionChange = options.sectioned && !first && SECTION[node.kind] !== SECTION[entries[k - 1]!.node.kind];
+      const sections = options.sections;
+      const sectionChange = sections && !first && sections[node.kind] !== sections[entries[k - 1]!.node.kind];
       if (!first && (sectionChange || options.separated)) blankLine();
       printTrivia(depth, entry.before, !first);
       printTrivia(depth, hoisted.get(node) ?? [], true);
@@ -335,15 +346,16 @@ export function format(source: string): ParseResult<string> {
     }
     const block = blockOf(n)!;
     const { header, entries, closing } = toEntries(block.items, n.closingTrivia);
+    const order = n.kind === "Architecture" ? ORDER : n.kind === "System" ? SYSTEM_ORDER : undefined;
     // Sort only after assigning the comments (stable), so they stay with their statement.
-    if (n.kind === "Architecture") entries.sort((x, y) => ORDER[x.node.kind]! - ORDER[y.node.kind]!);
+    if (order) entries.sort((x, y) => order[x.node.kind]! - order[y.node.kind]!);
     if (entries.length === 0 && header.length === 0 && !hasComment(closing)) {
       emit(depth, block.head + " {}");
       return;
     }
     emit(depth, block.head + " {");
     appendTrailing(header);
-    printEntries(depth + 1, entries, { sectioned: n.kind === "Architecture" });
+    printEntries(depth + 1, entries, { sections: n.kind === "Architecture" ? SECTION : order && SYSTEM_SECTION });
     printTrivia(depth + 1, closing, true);
     trimBlankLines();
     emit(depth, "}");

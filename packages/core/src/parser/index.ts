@@ -3,7 +3,7 @@ import type {
   DefineStmt, DirectionStmt, PinsStmt, PinSpacingStmt, StackStmt, CountStmt, EndpointNode, GridCell, GridNode, GridRow, GroupStmt, HintStmt,
   Ident, IconStmt, ImportanceStmt, LabelStmt, LayoutStmt, MetaBlock, MetaEntry, ModeStmt,
   PinStmt, ShapeStmt, ShowStmt, SideBlock, SizeStmt, Statement, StringLit, SyntaxNode, SyntaxTree,
-  SystemNode, ThemeStmt, Trivia, TypeStmt, ViewNode, ZoneNode,
+  SystemNode, ThemeStmt, Trivia, TypeStmt, ViewNode, ZoneNode, ZoneStmt,
 } from "../ast/index.js";
 import { diagnostic, withSuggestion, type Diagnostic, type ParseResult } from "../diagnostics/index.js";
 import { lex, type Token, type TokenType } from "../lexer/index.js";
@@ -338,7 +338,14 @@ export function parse(source: string): ParseResult<SyntaxTree> {
 
   // ── Zones and systems ────────────────────────────────────────
 
-  const groupStmt = (context: string) => (): GroupStmt | undefined => {
+  /** `connections`: only a system carries them — a zone is a layout band (02-dsl.md §4.5). */
+  const groupStmt = (context: string, connections: boolean) => (): GroupStmt | undefined => {
+    const following = peek(1).type;
+    if (at("ident") && (following === "." || ARROWS.includes(following))) {
+      if (connections) return connection();
+      report(diagnostic("E001", "Connections are not allowed in a zone — write them in a `system` or in the architecture", peek().span));
+      throw BAIL;
+    }
     if (isReserved()) return skipReserved();
     if (atWord("label")) return label();
     if (atWord("show")) return show();
@@ -355,7 +362,7 @@ export function parse(source: string): ParseResult<SyntaxTree> {
     const start = next();
     const id = ident();
     expect("{", "`{`");
-    const { items, closingTrivia } = block(groupStmt("a system"), GROUP_KEYWORDS);
+    const { items, closingTrivia } = block(groupStmt("a system", true), GROUP_KEYWORDS);
     return withClosing(node<SystemNode>(start, { kind: "System", id, body: items }), closingTrivia);
   };
 
@@ -363,8 +370,8 @@ export function parse(source: string): ParseResult<SyntaxTree> {
     const start = next();
     const id = ident();
     expect("{", "`{`");
-    const { items, closingTrivia } = block(groupStmt("a zone"), GROUP_KEYWORDS);
-    return withClosing(node<ZoneNode>(start, { kind: "Zone", id, body: items }), closingTrivia);
+    const { items, closingTrivia } = block(groupStmt("a zone", false), GROUP_KEYWORDS);
+    return withClosing(node<ZoneNode>(start, { kind: "Zone", id, body: items as ZoneStmt[] }), closingTrivia);
   };
 
   // ── Connections ──────────────────────────────────────────────

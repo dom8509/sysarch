@@ -46,7 +46,10 @@ Every milestone is usable on its own and ends with green tests.
 - `sysarch render` for Markdown files with several code blocks
 - Bus as a shared rail (`component can0: bus`) that several participants attach to
 - Icons from project-specific libraries via `use`
-- Connections inside `system` blocks
+- **Connections inside `system` blocks — done.** A `system` carries the connections between
+  its own components, so that the wiring of an ECU stays with the ECU; `W206` asks for a
+  connection that crosses the system boundary to move up. Rules in
+  [02 DSL](02-dsl.md), section 4.5.
 
 ### v0.3 — Engineering semantics
 

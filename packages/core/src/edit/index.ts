@@ -47,9 +47,7 @@ export function codeActions(
 }
 
 function createPinAction(source: string, tree: SyntaxTree, model: ArchitectureModel, offset: number): CodeAction | undefined {
-  const connection = tree.architecture?.body.find(
-    (s): s is ConnectionNode => s.kind === "Connection" && (s.from.pin?.span.start === offset || s.to.pin?.span.start === offset),
-  );
+  const connection = tree.architecture && findConnection(tree.architecture.body, offset);
   if (!connection) return undefined;
   const [endpoint, other] = connection.from.pin?.span.start === offset
     ? [connection.from, connection.to]
@@ -67,6 +65,18 @@ function createPinAction(source: string, tree: SyntaxTree, model: ArchitectureMo
     label: `Create pin \`${endpoint.pin.name}\` (${kind}) in \`${component.id.name}\``,
     edits: [insertIntoComponent(source, component, pin)],
   };
+}
+
+/** The connection one of whose pins starts at `offset` — also inside a `system`. */
+function findConnection(body: readonly (Statement | GroupStmt)[], offset: number): ConnectionNode | undefined {
+  for (const stmt of body) {
+    if (stmt.kind === "Connection" && (stmt.from.pin?.span.start === offset || stmt.to.pin?.span.start === offset)) return stmt;
+    if (stmt.kind === "Zone" || stmt.kind === "System") {
+      const found = findConnection(stmt.body, offset);
+      if (found) return found;
+    }
+  }
+  return undefined;
 }
 
 function findComponent(body: readonly (Statement | GroupStmt)[], id: string): ComponentNode | undefined {

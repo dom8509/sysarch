@@ -60,6 +60,13 @@ describe("codeActions", () => {
     expect(applyEdits(source, create.edits)).toContain(`component a { pin signal IN }`);
   });
 
+  it("E103: also fixes a connection written inside a system", () => {
+    const source = arch(`    system ecu {\n        component mcu: microcontroller\n        component trx: can_transceiver\n\n        mcu.CAN0_TX -> trx.TXD\n    }`);
+    const create = actions(source, "E103").at(-1)!;
+    expect(create.label).toBe("Create pin `CAN0_TX` (digital) in `mcu`");
+    expect(errors(applyEdits(source, create.edits))).toEqual([]);
+  });
+
   it("other diagnostics without a suggestion have no quick fixes", () => {
     const source = arch(`    component a: nope_template`);
     const { value, diagnostics } = compile(source);

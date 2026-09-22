@@ -50,6 +50,20 @@ describe("parse", () => {
     expect((value.architecture!.body[1] as ComponentNode).external).toBeUndefined();
   });
 
+  it("reads connections inside a system, but not inside a zone", () => {
+    const source = 'architecture "A" {\n zone z {\n system ecu {\n component mcu\n component trx\n mcu -> trx\n }\n }\n}';
+    const { value, diagnostics } = parse(source);
+    expect(diagnostics).toEqual([]);
+    const zone = value.architecture!.body[0] as ZoneNode;
+    const system = zone.body[0] as SystemNode;
+    expect(system.body.map((s) => s.kind)).toEqual(["Component", "Component", "Connection"]);
+    expect(system.body[2]).toMatchObject({ kind: "Connection", from: { component: { name: "mcu" } }, to: { component: { name: "trx" } } });
+
+    const inZone = parse('architecture "A" {\n zone z {\n component a\n component b\n a -> b\n }\n}');
+    expect(inZone.diagnostics.map((d) => `${d.code} ${d.span.line}:${d.span.column}`)).toEqual(["E001 5:2"]);
+    expect(inZone.diagnostics[0]!.message).toContain("not allowed in a zone");
+  });
+
   it("splits grid rows at line breaks", () => {
     const { value, diagnostics } = parse('architecture "A" {\n layout {\n  mode assisted\n  grid {\n   a | . | b\n   . | c | .\n  }\n }\n}');
     expect(diagnostics).toEqual([]);

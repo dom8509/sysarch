@@ -201,6 +201,15 @@ without its zone. Widen the surroundings or narrow the element differently.
 Either the `show in` statements never name this view, or every component that names it is
 hidden by its surroundings. Rendering it would produce an empty diagram.
 
+## W206
+
+**A connection inside a `system` has an endpoint outside that system.**
+
+A system carries the wiring between its own components; the named component is not one of
+them. Move the connection to the architecture — a connection across the system boundary is
+not the system's own business. See
+[Zones and systems](/guides/zones-and-systems#connections-inside-a-system).
+
 ## I301
 
 **Pin without a connection.**

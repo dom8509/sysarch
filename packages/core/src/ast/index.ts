@@ -67,12 +67,15 @@ export interface GridRow extends SyntaxNode { kind: "GridRow"; cells: GridCell[]
 /** `id` is missing for an empty cell (`.`). */
 export interface GridCell extends SyntaxNode { kind: "GridCell"; id?: Ident }
 
-export type GroupStmt = LabelStmt | ShowStmt | SystemNode | ComponentNode;
+export type GroupStmt = LabelStmt | ShowStmt | SystemNode | ComponentNode | ConnectionNode;
+
+/** A zone groups for layout only; connections belong to a `system` or the architecture. */
+export type ZoneStmt = Exclude<GroupStmt, ConnectionNode>;
 
 export interface ZoneNode extends SyntaxNode {
   kind: "Zone";
   id: Ident;
-  body: GroupStmt[];
+  body: ZoneStmt[];
 }
 
 export interface SystemNode extends SyntaxNode {
