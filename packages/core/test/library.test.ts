@@ -36,7 +36,7 @@ describe("library/automotive.archlib", () => {
       "battery", "power", "regulator", "fuse", "relay", "ground",
       "chip", "soc", "memory", "watchdog", "clock",
       "can", "lin", "ethernet", "switch", "bus", "connector",
-      "driver", "bridge", "motor", "window", "valve", "lamp", "heater",
+      "highside", "lowside", "bridge", "motor", "window", "valve", "lamp", "heater",
       "sensor", "temperature", "current", "position",
       "ecu", "software", "cloud", "vehicle",
     ];

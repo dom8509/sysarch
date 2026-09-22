@@ -195,10 +195,20 @@ define bus {
 
 define high_side_driver {
     label "High Side Driver"
-    icon driver
+    icon highside
     category power
     size medium
     left   { pin power VS   pin digital IN }
+    right  { pin power OUT }
+    bottom { pin analog IS   pin ground GND }
+}
+
+define low_side_driver {
+    label "Low Side Driver"
+    icon lowside
+    category power
+    size medium
+    left   { pin digital IN }
     right  { pin power OUT }
     bottom { pin analog IS   pin ground GND }
 }

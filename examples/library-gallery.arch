@@ -51,9 +51,9 @@ architecture "Library Gallery" {
             power_source | battery        | fuse        | relay    | power_supply | ground
             mcu          | soc            | memory      | watchdog | oscillator   | block
             can_trx      | lin_trx        | eth_phy     | switch   | bus          | connector
-            hsd          | half_bridge    | load        | motor    | window_motor | heater
+            hsd          | lsd            | half_bridge | load     | motor        | window_motor
             sensor       | current_sensor | temp_sensor | position | software     | external_ecu
-            cloud        | vehicle        | valve       | .        | .            | .
+            cloud        | vehicle        | valve       | heater   | .            | .
         }
     }
 
@@ -79,6 +79,7 @@ architecture "Library Gallery" {
     component connector: connector
 
     component hsd: high_side_driver
+    component lsd: low_side_driver
     component half_bridge: full_bridge
     component load: load
     component motor: motor
