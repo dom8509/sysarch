@@ -1,0 +1,244 @@
+{
+  "nodes": [
+    {
+      "id": "supply",
+      "type": "group",
+      "position": {
+        "x": 32,
+        "y": 80
+      },
+      "style": {
+        "width": 144,
+        "height": 192
+      },
+      "data": {
+        "label": "Power",
+        "groupType": "zone"
+      }
+    },
+    {
+      "id": "battery",
+      "type": "battery",
+      "parentId": "supply",
+      "extent": "parent",
+      "position": {
+        "x": 16,
+        "y": 80
+      },
+      "width": 96,
+      "height": 64,
+      "data": {
+        "label": "KL30",
+        "category": "power",
+        "importance": "secondary",
+        "size": "small",
+        "shape": "rounded",
+        "icon": {
+          "name": "battery",
+          "viewBox": "0 0 24 24",
+          "elements": [
+            {
+              "d": "M3.5 7h14a1.5 1.5 0 0 1 1.5 1.5v7a1.5 1.5 0 0 1 -1.5 1.5h-14a1.5 1.5 0 0 1 -1.5 -1.5v-7a1.5 1.5 0 0 1 1.5 -1.5Z",
+              "mode": "stroke"
+            },
+            {
+              "d": "M22 10v4",
+              "mode": "stroke"
+            },
+            {
+              "d": "M6 12h4M8 10v4",
+              "mode": "stroke"
+            },
+            {
+              "d": "M13 12h3",
+              "mode": "stroke"
+            }
+          ]
+        },
+        "pins": [],
+        "meta": {}
+      }
+    },
+    {
+      "id": "control",
+      "type": "group",
+      "position": {
+        "x": 176,
+        "y": 80
+      },
+      "style": {
+        "width": 336,
+        "height": 192
+      },
+      "data": {
+        "label": "Processing",
+        "groupType": "zone"
+      }
+    },
+    {
+      "id": "ecu",
+      "type": "group",
+      "parentId": "control",
+      "extent": "parent",
+      "position": {
+        "x": 32,
+        "y": 32
+      },
+      "style": {
+        "width": 240,
+        "height": 144
+      },
+      "data": {
+        "label": "Door ECU",
+        "groupType": "system"
+      }
+    },
+    {
+      "id": "mcu",
+      "type": "microcontroller",
+      "parentId": "ecu",
+      "extent": "parent",
+      "position": {
+        "x": 16,
+        "y": 32
+      },
+      "width": 208,
+      "height": 96,
+      "data": {
+        "label": "BCM",
+        "category": "controller",
+        "importance": "secondary",
+        "size": "large",
+        "shape": "rounded",
+        "icon": {
+          "name": "chip",
+          "viewBox": "0 0 24 24",
+          "elements": [
+            {
+              "d": "M7 6h10a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1Z",
+              "mode": "stroke"
+            },
+            {
+              "d": "M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4",
+              "mode": "stroke"
+            }
+          ]
+        },
+        "pins": [],
+        "meta": {}
+      }
+    },
+    {
+      "id": "actuation",
+      "type": "group",
+      "position": {
+        "x": 512,
+        "y": 80
+      },
+      "style": {
+        "width": 176,
+        "height": 192
+      },
+      "data": {
+        "label": "Actuation",
+        "groupType": "zone"
+      }
+    },
+    {
+      "id": "motor",
+      "type": "motor",
+      "parentId": "actuation",
+      "extent": "parent",
+      "position": {
+        "x": 64,
+        "y": 64
+      },
+      "width": 96,
+      "height": 96,
+      "data": {
+        "label": "Window motor",
+        "category": "actuator",
+        "importance": "secondary",
+        "size": "small",
+        "shape": "circle",
+        "icon": {
+          "name": "motor",
+          "viewBox": "0 0 24 24",
+          "elements": [
+            {
+              "d": "M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0Z",
+              "mode": "stroke"
+            },
+            {
+              "d": "M8 16V8l4 5 4-5v8",
+              "mode": "stroke"
+            }
+          ]
+        },
+        "pins": [],
+        "meta": {}
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "battery->mcu#1",
+      "source": "battery",
+      "sourceHandle": "__body_right",
+      "target": "mcu",
+      "targetHandle": "__body_left",
+      "type": "step",
+      "label": "12 V",
+      "markerEnd": {
+        "type": "arrowclosed"
+      },
+      "className": "sa-edge sa-group-single sa-kind-signal",
+      "data": {
+        "kind": "signal",
+        "direction": "forward",
+        "points": [
+          [
+            144,
+            192
+          ],
+          [
+            224,
+            192
+          ]
+        ]
+      }
+    },
+    {
+      "id": "mcu->motor#1",
+      "source": "mcu",
+      "sourceHandle": "__body_right",
+      "target": "motor",
+      "targetHandle": "__body_left",
+      "type": "step",
+      "label": "Window up/down",
+      "markerEnd": {
+        "type": "arrowclosed"
+      },
+      "className": "sa-edge sa-group-single sa-kind-signal",
+      "data": {
+        "kind": "signal",
+        "direction": "forward",
+        "points": [
+          [
+            432,
+            192
+          ],
+          [
+            576,
+            192
+          ]
+        ]
+      }
+    }
+  ],
+  "viewport": {
+    "x": 0,
+    "y": 0,
+    "zoom": 1
+  }
+}

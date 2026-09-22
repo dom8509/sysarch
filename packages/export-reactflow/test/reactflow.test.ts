@@ -1,22 +1,29 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { basename, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { compile, SIDES } from "@sysarch/core";
+import { compile, projectView, SIDES } from "@sysarch/core";
 import { layout } from "@sysarch/layout";
 import { getTheme } from "@sysarch/themes";
 import { describe, expect, it } from "vitest";
 import { bodyHandle, toReactFlow, type ComponentNode, type ReactFlowExport } from "../src/index.js";
+import type { ArchitectureModel } from "@sysarch/core";
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
 const examples = readdirSync(join(root, "examples")).filter((f) => f.endsWith(".arch")).sort();
 
-function exportSource(source: string): ReactFlowExport {
+const exportModel = (model: ArchitectureModel): ReactFlowExport =>
+  toReactFlow(model, layout(model, getTheme(model.theme)));
+
+function compileSource(source: string): ArchitectureModel {
   const { value, diagnostics } = compile(source);
   expect(diagnostics.filter((d) => d.severity === "error")).toEqual([]);
-  return toReactFlow(value, layout(value, getTheme(value.theme)));
+  return value;
 }
 
-const exportExample = (file: string) => exportSource(readFileSync(join(root, "examples", file), "utf8"));
+const exportSource = (source: string): ReactFlowExport => exportModel(compileSource(source));
+
+const readExample = (file: string) => readFileSync(join(root, "examples", file), "utf8");
+const exportExample = (file: string) => exportSource(readExample(file));
 
 /** Absolute position of a node via the parent chain. */
 function absolute(flow: ReactFlowExport, id: string): { x: number; y: number } {
@@ -33,8 +40,14 @@ describe("React Flow export", () => {
   for (const file of examples) {
     const name = basename(file, ".arch");
     it(`${name} matches the golden file`, async () => {
-      await expect(JSON.stringify(exportExample(file), null, 2) + "\n")
+      const model = compileSource(readExample(file));
+      await expect(JSON.stringify(exportModel(model), null, 2) + "\n")
         .toMatchFileSnapshot(join(root, "tests", "golden", `${name}.reactflow.json`));
+      // `sysarch render --format reactflow` writes one file per view; CI compares those too.
+      for (const view of model.views) {
+        await expect(JSON.stringify(exportModel(projectView(model, view.id)), null, 2) + "\n")
+          .toMatchFileSnapshot(join(root, "tests", "golden", `${name}-${view.id}.reactflow.json`));
+      }
     });
 
     it(`${name} is loadable: parents first, handles present, geometry fits`, () => {
