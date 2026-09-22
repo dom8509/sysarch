@@ -193,6 +193,16 @@ define bus {
 
 // ── Power stages & actuators ─────────────────────────────────
 
+define high_side_driver {
+    label "High Side Driver"
+    icon driver
+    category power
+    size medium
+    left   { pin power VS   pin digital IN }
+    right  { pin power OUT }
+    bottom { pin analog IS   pin ground GND }
+}
+
 define half_bridge {
     label "Half Bridge"
     icon bridge
